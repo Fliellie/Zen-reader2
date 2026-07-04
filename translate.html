@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Dịch Văn Bản</title>
+    <link rel="stylesheet" href="translate.css">
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-actions">
+            <button id="btnBack" class="btn-back">⬅ Quay lại trang chủ</button>
+        </div>
+
+        <div class="controls">
+            <select id="langSelect">
+                <option value="en-vi">Anh ➔ Việt</option>
+                <option value="vi-en">Việt ➔ Anh</option>
+            </select>
+            <button id="btnTranslate" class="btn-translate">Phiên dịch</button>
+            <button id="btnHighlightTranslate" class="btn-translate" style="background-color: #28a745;">Dịch theo bôi đen</button>
+        </div>
+
+        <div class="translate-box">
+            <div class="panel">
+                <label id="lblSource" for="sourceText">Văn bản gốc (Tiếng Anh):</label>
+                <textarea id="sourceText" placeholder="Nhập văn bản cần dịch tại đây..."></textarea>
+            </div>
+
+            <div class="panel">
+                <label id="lblTarget" for="targetText">Bản dịch (Tiếng Việt):</label>
+                <textarea id="targetText" readonly placeholder="Kết quả dịch sẽ hiển thị ở đây..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="translate.js"></script>
+</body>
+</html>

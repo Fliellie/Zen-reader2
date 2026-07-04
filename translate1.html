@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Theo Bôi Đen</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+        }
+
+        /* Thanh Header cố định luôn đi theo khi cuộn */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-back {
+            padding: 8px 12px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .controls-select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .btn-action {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-action:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-add-word {
+            background-color: #28a745;
+        }
+
+        .btn-add-word:hover {
+            background-color: #218838;
+        }
+
+        /* Ô hiển thị bản dịch trên Header */
+        .result-display {
+            flex: 1;
+            background-color: #f1f3f4;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            min-height: 40px;
+            max-height: 80px;
+            overflow-y: auto;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Bảng nội dung lớn chiếm toàn bộ màn hình */
+        .content-container {
+            margin-top: 100px; /* Chừa khoảng trống cho header cố định */
+            padding: 20px;
+            min-height: calc(100vh - 100px);
+        }
+
+        .large-panel {
+            width: 100%;
+            height: calc(100vh - 150px);
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #fff;
+            resize: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <div class="header-left">
+            <button id="btnBack" class="btn-back">⬅ Quay lại</button>
+            <select id="langSelect" class="controls-select">
+                <option value="en-vi">Anh ➔ Việt</option>
+                <option value="vi-en">Việt ➔ Anh</option>
+            </select>
+            <button id="btnTranslate" class="btn-action">Dịch chữ bôi đen</button>
+        </div>
+
+        <div id="translationResult" class="result-display">
+            Bôi đen văn bản bên dưới rồi nhấn nút "Dịch chữ bôi đen"...
+        </div>
+
+        <button id="btnAddWord" class="btn-action btn-add-word">➕ Thêm vào sổ từ</button>
+    </div>
+
+    <div class="content-container">
+        <textarea id="mainContent" class="large-panel" placeholder="Dán hoặc nhập đoạn văn bản dài vào đây. Sau đó thử bôi đen một từ/câu bất kỳ và bấm nút Dịch bên trên..."></textarea>
+    </div>
+
+    <script src="translate1.js"></script>
+</body>
+</html>

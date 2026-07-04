@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Zen Reader</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <input type="file" id="web-pdf-uploader" accept=".pdf" style="display: none;" onchange="handlePDFUpload(this)">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <script src="index.js"></script>
+<input type="file" id="web-pdf-uploader" accept=".pdf" style="display: none;" onchange="handlePDFUpload(this)">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-pixel">
+                ZEN_READ
+            </div>
+            <button class="btn-pixel" id="btn-upload" onclick="triggerUploadPDF()">
+                MỞ FILE PDF
+            </button>
+            <button class="btn-pixel" id="btn-upload" onclick="handleCreateYoutubeBook()">
+                XEM VIDEO NGOẠI NGỮ(tính năng đang bảo trì)
+            </button>
+            <button class="btn-pixel" id="btn-upload" onclick="handleTranslate()">
+                DỊCH VĂN BẢN DÀI
+            </button>
+            <button class="btn-pixel" id="btn-upload" >
+                ÔN TẬP TỪ MỚI CỦA BẠN(tính năng đang phát triển)
+            </button>
+            <div class="sidebar-footer">
+                v1.1.8_online
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h2>TỦ SÁCH CỦA BẠN</h2>
+                <p>Select a book to continue your distraction-free reading journey.</p>
+            </header>
+
+            <div class="books-grid" id="books-grid">
+                <div class="empty-state" id="empty-state">
+                    <p>No books available. Click "OPEN PDF FILE" on the left to add a book!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="youtube-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content-pixel">
+            <h3>■ TẠO SÁCH TỪ YOUTUBE</h3>
+            <p class="modal-desc">Nhập link video ngoại ngữ để trích xuất phụ đề bài học.</p>
+            
+            <div class="input-group-pixel">
+                <label>ĐƯỜNG DẪN VIDEO:</label>
+                <input type="text" id="youtube-link-input" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+
+            <div class="input-group-pixel">
+                <label>NGÔN NGỮ CỦA BẠN (NGƯỜI ĐỌC):</label>
+                <select id="lang-select">
+                    <option value="vi">Tiếng Việt (Dịch nội dung tiếng Anh sang tiếng Việt)</option>
+                    <option value="en">Tiếng Anh (Giữ nguyên phụ đề tiếng Anh để luyện đọc)</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-pixel btn-confirm" onclick="submitYoutubeRequest()">BẮT ĐẦU</button>
+                <button class="btn-pixel btn-cancel" onclick="closeYoutubeModal()">HỦY</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

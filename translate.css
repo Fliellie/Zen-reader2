@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Container ôm trọn toàn bộ màn hình */
+.container {
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Thanh điều hướng/nút bấm phía trên */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-back {
+    padding: 8px 16px;
+    background-color: var(--light-gray);
+    color: var(--muted-gray);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    background-color: var(--border-subtle);
+    color: var(--text-color);
+}
+
+/* Khu vực thanh điều khiển (Select và Button dịch) */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.controls select {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border: 1px solid var(--box-border);
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-translate {
+    padding: 10px 30px;
+    background-color: var(--primary-green);
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.btn-translate:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Khu vực 2 bảng dịch chiếm trọn phần không gian còn lại */
+.translate-box {
+    display: flex;
+    gap: 20px;
+    flex: 1; /* Tự động kéo giãn lấp đầy chiều cao còn lại của trang */
+    min-height: 0; /* Ngăn lỗi tràn khung trên một số trình duyệt */
+}
+
+.panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--primary-green);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.panel textarea {
+    flex: 1; /* Ô nhập liệu tự động cao hết cỡ theo panel */
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: var(--box-bg);
+    color: var(--box-text);
+    border: 1px solid var(--box-border);
+    border-radius: 8px;
+    resize: none;
+    outline: none;
+    box-shadow: inset 0 1px 3px var(--shadow-color);
+    transition: border-color 0.2s, background-color 0.3s, color 0.3s;
+}
+
+.panel textarea:focus {
+    border-color: var(--primary-green);
+}
+
+/* Trạng thái bảng kết quả (Readonly) */
+.panel textarea[readonly] {
+    background-color: var(--counter-bg);
+    color: var(--counter-text);
+    border-color: var(--counter-border);
+}

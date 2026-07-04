@@ -1,0 +1,482 @@
+/* ==========================================================================
+   1. ROOT VARIABLES & THEMES (White, Gray, and Dark Green)
+   ========================================================================== */
+:root {
+    /* LIGHT MODE (Default) */
+    --bg-color: #fcfdfd;          /* Off-white background for eye comfort */
+    --text-color: #1a241e;        /* Deep charcoal with a touch of green */
+    --box-bg: #ffffff;
+    --box-text: #1a241e;
+    --box-border: #e2e8f0;
+    --counter-bg: #edf5f1;        /* Very light muted green tint */
+    --counter-text: #1b4332;      /* Deep forest green */
+    --counter-border: #2d6a4f;
+    --header-bg: #ffffff;
+    
+    --primary-green: #2d6a4f;     /* Dark green accent */
+    --primary-hover: #1b4332;     /* Deeper forest green */
+    --shadow-color: rgba(45, 106, 79, 0.1);
+    --muted-gray: #64748b;
+    --light-gray: #f1f5f9;
+    --border-subtle: #cbd5e1;
+}
+
+body.dark-mode {
+    /* DARK MODE */
+    --bg-color: #0f1412;          /* Very dark green-tinted charcoal */
+    --text-color: #e2e8f0;
+    --box-bg: #17201c;
+    --box-text: #ffffff;
+    --box-border: #2d6a4f;
+    --counter-bg: #142820;
+    --counter-text: #52b788;      /* Minty green for high contrast text */
+    --counter-border: #40916c;
+    --header-bg: #17201c;
+    
+    --primary-green: #40916c;     /* Lighter dark-green for accessibility */
+    --primary-hover: #52b788;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --muted-gray: #94a3b8;
+    --light-gray: #1e293b;
+    --border-subtle: #334155;
+}
+
+/* ==========================================================================
+   2. RESET & BASE MODERN STYLES
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500; 
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   3. MAIN LAYOUT
+   ========================================================================== */
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--box-bg);
+    border-right: 1px solid var(--border-subtle);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-pixel {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary-green);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px;
+    background: var(--box-bg);
+    margin-bottom: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar-footer {
+    font-size: 12px;
+    color: var(--muted-gray);
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.main-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 20px;
+}
+
+.main-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.main-header p {
+    color: var(--muted-gray);
+    font-size: 15px;
+}
+
+/* Grid Layout for Books */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+    align-content: start;
+}
+
+.book-card {
+    background-color: var(--box-bg);
+    border: 1px solid var(--box-border);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-green);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--box-text);
+    word-break: break-word;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.book-progress {
+    font-size: 13px;
+    color: var(--counter-text);
+    margin-bottom: 15px;
+    background: var(--counter-bg);
+    padding: 6px 10px;
+    border: 1px solid var(--counter-border);
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    border: 1px dashed var(--border-subtle);
+    border-radius: 12px;
+    background: var(--box-bg);
+    color: var(--muted-gray);
+}
+
+/* ==========================================================================
+   4. BUTTONS & CONTROLS (Clean, Rounded Modern Design)
+   ========================================================================== */
+.btn-pixel {
+    display: inline-block;
+    width: 100%;
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-pixel:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-pixel:active {
+    transform: scale(0.98);
+}
+
+/* Book Read Now Button */
+.btn-read-now {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    border: 1px solid var(--border-subtle);
+}
+
+.btn-read-now:hover {
+    background-color: var(--primary-green);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* Header Action Controls */
+.btn-small {
+    width: auto !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+}
+
+.pixel-select {
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    background: var(--box-bg);
+    color: var(--text-color);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.pixel-select:focus {
+    border-color: var(--primary-green);
+}
+
+/* ==========================================================================
+   5. ZEN READER MODE
+   ========================================================================== */
+.zen-body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.zen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--box-border);
+    background: var(--header-bg);
+}
+
+.zen-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.zen-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navigation Side Buttons */
+.btn-side {
+    width: 52px !important;
+    height: 52px;
+    font-size: 20px !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50% !important; /* Circular side arrows */
+    background-color: var(--box-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-subtle) !important;
+    box-shadow: 0 2px 8px var(--shadow-color) !important;
+}
+
+.btn-side:hover {
+    background-color: var(--primary-green) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+.zen-center-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    flex: 1;
+    max-width: 800px;
+}
+
+.book-title-indicator {
+    font-size: 13px;
+    color: var(--muted-gray);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Core Sentence Display Box */
+.sentence-box {
+    font-size: 32px; 
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--box-text);
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    word-break: break-word;
+    margin-bottom: 30px;
+    width: 100%;
+    transition: font-size 0.2s ease, color 0.3s ease;
+}
+
+/* Modern Sentence Counter Tag */
+.sentence-counter {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--counter-text);
+    background: var(--counter-bg);
+    border: 1px solid var(--counter-border);
+    border-radius: 20px;
+    padding: 6px 18px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   6. MODAL OVERLAY & DIALOG (Minimal Glassmorphism Overlay)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 20, 18, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content-pixel {
+    background: var(--box-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 465px;
+    color: var(--text-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content-pixel h3 { 
+    margin-top: 0; 
+    color: var(--primary-green); 
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.modal-desc { 
+    font-size: 14px; 
+    color: var(--muted-gray); 
+    margin-bottom: 25px; 
+}
+
+.input-group-pixel { margin-bottom: 20px; }
+.input-group-pixel label { 
+    display: block; 
+    font-size: 13px; 
+    font-weight: 600;
+    margin-bottom: 8px; 
+    color: var(--text-color); 
+}
+
+/* Inputs and Select Customizations */
+.input-group-pixel input, 
+.input-group-pixel select {
+    width: 100%;
+    background: var(--bg-color);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    color: var(--text-color);
+    padding: 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-group-pixel input:focus, 
+.input-group-pixel select:focus {
+    border-color: var(--primary-green);
+}
+
+.modal-actions { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 12px; 
+    margin-top: 30px; 
+}
+
+.btn-confirm { 
+    background: var(--primary-green) !important; 
+    color: #ffffff !important; 
+}
+
+.btn-confirm:hover {
+    background: var(--primary-hover) !important;
+}
+
+.btn-cancel { 
+    background: transparent !important; 
+    color: var(--muted-gray) !important; 
+    border: 1px solid var(--border-subtle) !important;
+}
+
+.btn-cancel:hover {
+    background: var(--light-gray) !important;
+    color: var(--text-color) !important;
+}
+/* Đoạn mã này chỉ kích hoạt KHI NGƯỜI DÙNG XOAY NGANG ĐIỆN THOẠI */
+@media screen and (max-height: 450px) and (orientation: landscape) {
+    
+    /* 1. Thu nhỏ bớt thanh header để nhường chỗ cho chữ sách */
+    .zen-header {
+        padding: 4px 10px;
+        height: auto;
+    }
+    
+    /* 2. Ép phần container chính chiếm trọn chiều cao còn lại, né lỗi phải cuộn màn hình */
+    .zen-container {
+        height: calc(100vh - 50px); 
+        padding: 5px;
+    }
+
+    /* 3. Thu nhỏ bớt padding của ô chứa câu để đẩy cỡ chữ to lên tối đa */
+    .sentence-box {
+        padding: 10px;
+        line-height: 1.3;
+        /* Giới hạn số dòng hiển thị để câu dài không bị tràn ra ngoài màn hình */
+        max-height: 65vh; 
+        overflow-y: auto; 
+    }
+
+    /* 4. Cho hai nút bấm Chuyển câu (◀ và ▶) mỏng lại để nhường bề ngang cho chữ */
+    .btn-side {
+        width: 40px;
+        font-size: 18px;
+    }
+}
