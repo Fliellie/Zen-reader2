@@ -170,3 +170,75 @@ document.addEventListener('keydown', function(event) {
         prevSentence();
     }
 });
+// ==========================================
+// TÍNH NĂNG DỊCH CHỮ BÔI ĐEN (MỚI TÍCH HỢP)
+// ==========================================
+document.addEventListener("DOMContentLoaded", function () {
+    const btnTranslate = document.getElementById("btnTranslate");
+    const btnAddWord = document.getElementById("btnAddWord");
+    const langSelect = document.getElementById("langSelect");
+    const translationResult = document.getElementById("translationResult");
+    const sentenceBox = document.getElementById("sentence-box");
+
+    if (!btnTranslate || !translationResult) return; // Đảm bảo phần tử tồn tại
+
+    // Xử lý sự kiện "Dịch chữ bôi đen"
+    btnTranslate.addEventListener("click", function () {
+        let selectedText = "";
+        
+        // Lấy đoạn văn bản bôi đen trên trình duyệt
+        if (window.getSelection) {
+            selectedText = window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+            selectedText = document.selection.createRange().text;
+        }
+
+        selectedText = selectedText.trim();
+
+        // Kiểm tra xem người dùng có thực sự bôi đen không
+        if (selectedText === "") {
+            translationResult.innerHTML = "<span style='color: #ff4d4d;'>Lỗi: Hãy bôi đen chữ trong truyện trước!</span>";
+            return;
+        }
+
+        translationResult.textContent = "Đang dịch...";
+
+        const currentMode = langSelect.value;
+        let sourceLang = currentMode === "en-vi" ? "en" : "vi";
+        let targetLang = currentMode === "en-vi" ? "vi" : "en";
+
+        const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(selectedText)}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data[0]) {
+                    let translatedText = "";
+                    data[0].forEach(item => {
+                        if (item[0]) translatedText += item[0];
+                    });
+                    // Hiển thị kết quả dịch
+                    translationResult.textContent = translatedText;
+                } else {
+                    translationResult.textContent = "Lỗi: Không thể phân tích.";
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi dịch:", error);
+                translationResult.textContent = "Lỗi kết nối mạng!";
+            });
+    });
+
+    // Xử lý nút "Thêm vào sổ từ"
+    btnAddWord.addEventListener("click", function () {
+        const textToSave = translationResult.textContent.trim();
+        
+        if (textToSave.includes("Bôi đen từ dưới") || textToSave.includes("Lỗi:") || textToSave.includes("Đang dịch...")) {
+            alert("Chưa có từ vựng nào được dịch hợp lệ để lưu!");
+            return;
+        }
+
+        // Thông báo lưu từ (Bạn có thể phát triển lưu vào LocalStorage ở đây)
+        alert(`[SỔ TỪ] Đã lưu: ${textToSave}`);
+    });
+});

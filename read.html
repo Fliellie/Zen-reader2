@@ -8,22 +8,39 @@
 </head>
 <body class="zen-body" id="zen-body">
 
-    <header class="zen-header">
-        <button class="btn-pixel btn-small" onclick="goBackToLibrary()">
-            ◁ TỦ SÁCH
-        </button>
-        
-        <div class="zen-controls">
-            <select id="font-selector" class="pixel-select" onchange="changeFont(this.value)">
-                <option value="'Courier New', monospace">FONT: PIXEL</option>
-                <option value="sans-serif">FONT: TỐI GIẢN</option>
-                <option value="Georgia, serif">FONT: SÁCH GIẤY</option>
+    <header class="zen-header" style="flex-wrap: wrap; gap: 10px; height: auto; padding: 10px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="btn-pixel btn-small" onclick="goBackToLibrary()">
+                ◁ TỦ SÁCH
+            </button>
+            
+            <div class="zen-controls">
+                <select id="font-selector" class="pixel-select" onchange="changeFont(this.value)">
+                    <option value="'Courier New', monospace">FONT: PIXEL</option>
+                    <option value="sans-serif">FONT: TỐI GIẢN</option>
+                    <option value="Georgia, serif">FONT: SÁCH GIẤY</option>
+                </select>
+
+                <button class="btn-pixel btn-small btn-ctrl" onclick="adjustFontSize(4)">A+</button>
+                <button class="btn-pixel btn-small btn-ctrl" onclick="adjustFontSize(-4)">A-</button>
+
+                <button id="theme-toggle-btn" class="btn-pixel btn-small btn-ctrl" onclick="toggleTheme()">👁 ĐÊM</button>
+            </div>
+        </div>
+
+        <div class="translate-controls" style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 300px;">
+            <select id="langSelect" class="pixel-select" style="max-width: 120px;">
+                <option value="en-vi">Anh ➔ Việt</option>
+                <option value="vi-en">Việt ➔ Anh</option>
             </select>
+            
+            <button id="btnTranslate" class="btn-pixel btn-small" style="background-color: #007bff; color: white;">DỊCH</button>
+            
+            <div id="translationResult" class="pixel-result" style="flex: 1; background: #222; color: #fff; padding: 4px 8px; font-size: 12px; min-height: 28px; border: 1px dashed #666; max-height: 50px; overflow-y: auto;">
+                Bôi đen từ dưới rồi bấm DỊCH...
+            </div>
 
-            <button class="btn-pixel btn-small btn-ctrl" onclick="adjustFontSize(4)">A+</button>
-            <button class="btn-pixel btn-small btn-ctrl" onclick="adjustFontSize(-4)">A-</button>
-
-            <button id="theme-toggle-btn" class="btn-pixel btn-small btn-ctrl" onclick="toggleTheme()">👁 ĐÊM</button>
+            <button id="btnAddWord" class="btn-pixel btn-small" style="background-color: #28a745; color: white;">+ SỔ TỪ</button>
         </div>
     </header>
 
