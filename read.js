@@ -171,22 +171,20 @@ document.addEventListener('keydown', function(event) {
     }
 });
 // ==========================================
-// TÍNH NĂNG DỊCH CHỮ BÔI ĐEN (MỚI TÍCH HỢP)
+// TÍNH NĂNG TỰ ĐỘNG DỊCH KHI THẢ CHUỘT (MỚI)
 // ==========================================
 document.addEventListener("DOMContentLoaded", function () {
-    const btnTranslate = document.getElementById("btnTranslate");
     const btnAddWord = document.getElementById("btnAddWord");
     const langSelect = document.getElementById("langSelect");
     const translationResult = document.getElementById("translationResult");
     const sentenceBox = document.getElementById("sentence-box");
 
-    if (!btnTranslate || !translationResult) return; // Đảm bảo phần tử tồn tại
+    if (!sentenceBox || !translationResult) return; // Đảm bảo phần tử tồn tại
 
-    // Xử lý sự kiện "Dịch chữ bôi đen"
-    btnTranslate.addEventListener("click", function () {
+    // Hàm xử lý lấy chữ bôi đen và gọi API dịch
+    function handleAutoTranslate() {
         let selectedText = "";
         
-        // Lấy đoạn văn bản bôi đen trên trình duyệt
         if (window.getSelection) {
             selectedText = window.getSelection().toString();
         } else if (document.selection && document.selection.type != "Control") {
@@ -195,17 +193,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         selectedText = selectedText.trim();
 
-        // Kiểm tra xem người dùng có thực sự bôi đen không
-        if (selectedText === "") {
-            translationResult.innerHTML = "<span style='color: #ff4d4d;'>Lỗi: Hãy bôi đen chữ trong truyện trước!</span>";
-            return;
-        }
+        // Nếu trống thì bỏ qua, không làm gì cả (tránh ghi đè thông báo cũ khi click ra ngoài)
+        if (selectedText === "") return;
 
+        // Bắt đầu dịch
         translationResult.textContent = "Đang dịch...";
 
         const currentMode = langSelect.value;
-        let sourceLang = currentMode === "en-vi" ? "en" : "vi";
-        let targetLang = currentMode === "en-vi" ? "vi" : "en";
+        const sourceLang = currentMode === "en-vi" ? "en" : "vi";
+        const targetLang = currentMode === "en-vi" ? "vi" : "en";
 
         const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(selectedText)}`;
 
@@ -217,8 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     data[0].forEach(item => {
                         if (item[0]) translatedText += item[0];
                     });
-                    // Hiển thị kết quả dịch
+                    // Hiển thị kết quả và lưu lại text gốc vào thuộc tính data để dùng cho sổ từ nếu cần
                     translationResult.textContent = translatedText;
+                    translationResult.setAttribute("data-original", selectedText);
                 } else {
                     translationResult.textContent = "Lỗi: Không thể phân tích.";
                 }
@@ -227,18 +224,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Lỗi dịch:", error);
                 translationResult.textContent = "Lỗi kết nối mạng!";
             });
-    });
+    }
+
+    // Lắng nghe sự kiện thả chuột HOẶC thả phím (khi dùng Shift + Mũi tên để bôi đen) trên hộp text
+    sentenceBox.addEventListener("mouseup", handleAutoTranslate);
+    sentenceBox.addEventListener("keyup", handleAutoTranslate);
 
     // Xử lý nút "Thêm vào sổ từ"
-    btnAddWord.addEventListener("click", function () {
-        const textToSave = translationResult.textContent.trim();
-        
-        if (textToSave.includes("Bôi đen từ dưới") || textToSave.includes("Lỗi:") || textToSave.includes("Đang dịch...")) {
-            alert("Chưa có từ vựng nào được dịch hợp lệ để lưu!");
-            return;
-        }
+    if (btnAddWord) {
+        btnAddWord.addEventListener("click", function () {
+            const translatedText = translationResult.textContent.trim();
+            const originalText = translationResult.getAttribute("data-original") || "";
+            
+            if (!originalText || translatedText.includes("Bôi đen từ dưới") || translatedText.includes("Lỗi:") || translatedText.includes("Đang dịch...")) {
+                alert("Chưa có từ vựng nào được dịch hợp lệ để lưu!");
+                return;
+            }
 
-        // Thông báo lưu từ (Bạn có thể phát triển lưu vào LocalStorage ở đây)
-        alert(`[SỔ TỪ] Đã lưu: ${textToSave}`);
-    });
+            // Hiện tại thông báo chuẩn chỉnh cả từ gốc lẫn từ dịch
+            alert(`[SỔ TỪ] Đã lưu:\n- Gốc: ${originalText}\n- Dịch: ${translatedText}`);
+        });
+    }
 });
